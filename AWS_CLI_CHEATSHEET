@@ -1,0 +1,115 @@
+INSTALLING AWS CLI
+==================
+
+First off, make sure you have Python installed, as well as the PIP package manager, if you have both packages installed, run the following command:
+
+pip install awscli
+
+
+CONFIGURE AWS CLI
+=================
+
+After installing aws cli the next thing we need to do is is configure it by entering our Access Key ID and Secret Access Key.
+We run the command below to configure it.
+
+aws configure
+
+
+SETTING UP MULTIPLE ACCOUNTS/PROFILES 
+===================================== 
+
+To configure  a profile, use the following command;
+
+aws configure --profile profileA 
+
+To use the set up profile, you specify the profile you want using the "--profile" option when invoking a command, e.g. 
+
+aws s3 ls --profile profileA 
+
+
+CHANGING THE REGION 
+=================== 
+
+aws configure set region us-east-1 --profile profileA
+
+GETTING THE ACCESS KEY ID FOR A PARTICULAR PROFILE 
+================================================== 
+
+aws configure get aws_access_key_id --profile profileA 
+
+
+CREATING AN S3 BUCKET 
+===================== 
+
+aws s3 mb s3://mybucketname
+
+
+LIST S3 BUCKETS IN A REGION
+===========================
+
+aws s3 ls
+
+
+LIST THE CONTENTS OF A BUCKET
+=============================
+
+aws s3 ls s3://mybucketname
+
+
+UPLOAD A FILE TO S3
+===================
+
+aws s3 cp file1 s3://mybucketname
+
+
+DOWNLOADING A FILE FROM S3
+==========================
+
+aws s3 cp s3://mybucketname/testfile.txt .
+
+
+SYNC FILES FROM CURRENT DIRECTORY TO S3 BUCKET
+===============================================
+
+aws s3 sync . s3://mybucketname
+
+
+OTHER S3 COMMANDS
+==================
+
+To set the storage class, read permissions and exlude certain files from syncing you can use the command below.
+
+aws s3 sync . s3://mybucketname --storage-class STANDARD_IA --acl public-read --exlcude '*.gitignore'
+
+
+To upload a file and encrypt it using server side encryption we use the following command.
+
+aws s3 cp file.txt s3://mybucketname --sse
+
+
+LIST/DESCRIBE EC2 INSTANCES
+===========================
+
+aws ec2 describe-instances --output table
+
+
+CREATE EC2 INSTANCES
+====================
+
+aws ec2 run-instances --image-id ami-8c1be5f6 --count 2 --instance-type t2.micro --key-name myEC2Key --security-groups WebServers
+
+
+CREATING A KEYPAIR
+==================
+
+aws ec2 create-key-pair --key-name NewKeyPair --query 'KeyMaterial' --output txt > NewKeyPair.pem
+
+
+ADD A RULE TO A SECURITYGROUP
+=============================
+
+aws ec2 authorize-security-group-ingress --group-id sg-814134f2 --protocol tcp --port 22 --cidr 0.0.0.0/0
+
+
+
+
